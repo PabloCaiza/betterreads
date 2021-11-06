@@ -18,8 +18,17 @@
     ></script>
 
     <title>Better Reads</title>
+
+
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Better Reads</a>
+    </div>
+
+</nav>
+
 <div class="container">
 
     <div th:insert="componenets/book-search :: search-panel"></div>
@@ -39,6 +48,11 @@
                         <p class="card-text" th:text="${book.description}">Book description</p>
                         <p class="card-text">Published Date: <small class="text-muted" th:text="${book.publishedDate}">2020-01-01</small>
                         </p>
+                        <div th:unless="${loginId}" class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                            <p class="card-text display-6">Login to track this book</p>
+                            <a type="button" class="btn btn-primary btn-lg px-4 gap-3" href="/oauth2/authorization/github">Login via
+                                Github</a>
+                        </div>
                         <form th:if="${loginId}" method="post" action="lea" th:attr="action=@{/addUserBook}">
                             <div class="mb-3">
                                 <label for="startDate" class="form-label">Start date</label>
@@ -52,10 +66,10 @@
                             <div class="mb-3">
                                 <label for="readingStatus" class="form-label">Status</label>
                                 <select id="readingStatus" class="form-select" aria-label="Reading status" name="readingStatus" th:field="${userBooks.readingStatus}">
-                                    <option selected value="0">Status</option>
-                                    <option value="reading">Currentry Reading</option>
-                                    <option value="finished">Finished</option>
-                                    <option value="dnf">Did Not Finish</option>
+                                    <option selected value="3">Status</option>
+                                    <option value="0-reading">Currentry Reading</option>
+                                    <option value="1-finished">Finished</option>
+                                    <option value="2-dnf">Did Not Finish</option>
                                 </select>
                             </div>
 
